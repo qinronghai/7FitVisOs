@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>7Fit｜品牌与业务总览（Marketing v3.4）</title>
+  <style>
+    :root{
+      --bg:#0b1020;--bg-2:#111a31;--surface:#141f3a;--surface-2:#1a2747;--line:#2a3b64;
+      --text:#eef4ff;--muted:#9cb0d8;--brand:#8f63f6;--brand-2:#b9a0ff;--ok:#2dd4bf;
+      --radius-lg:20px;--radius-md:14px;--max:1180px;
+      --shadow:0 24px 64px rgba(3,10,28,.45);
+      --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --space-1:8px;--space-2:12px;--space-3:16px;--space-4:24px;--space-5:34px;
+    }
+    html[data-theme="light"]{
+      --bg:#f5f8ff;--bg-2:#ffffff;--surface:#ffffff;--surface-2:#f7f9ff;--line:#dce4f5;
+      --text:#0f1a33;--muted:#5f7196;--brand:#7a54e8;--brand-2:#9b7cf2;--ok:#0ea5a2;
+      --shadow:0 18px 46px rgba(32,49,89,.12);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:
+      radial-gradient(900px 360px at 0 0, rgba(143,99,246,.22), transparent 65%),
+      radial-gradient(700px 340px at 100% 0, rgba(45,212,191,.16), transparent 72%),
+      var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7}
+    .wrap{max-width:var(--max);margin:0 auto;padding:var(--space-4) var(--space-3) 60px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .logo{font-size:22px;font-weight:1000;letter-spacing:.2px}.logo b{color:var(--brand-2)}
+    .actions,.nav{display:flex;gap:8px;flex-wrap:wrap}
+    .btn,.nav a{height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);display:inline-flex;align-items:center;text-decoration:none;font-weight:800;font-size:13px}
+    .btn.primary{background:var(--brand);border-color:transparent;color:#fff}
+    .nav a.active{background:rgba(143,99,246,.16);border-color:rgba(143,99,246,.56)}
+
+    .cover{margin-top:14px;background:linear-gradient(140deg,rgba(143,99,246,.24),rgba(20,31,58,.92));border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px}
+    .cover h2{margin:0 0 8px;font-size:20px}
+    .meta{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+
+    .hero{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:var(--space-5);box-shadow:var(--shadow)}
+    h1{margin:0;font-size:46px;line-height:1.08;letter-spacing:.2px;font-weight:900}
+    .sub{margin-top:var(--space-2);color:var(--muted);max-width:70ch;font-size:15px}
+    .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(185,160,255,.6);background:rgba(143,99,246,.16);font-size:12px;color:var(--brand-2);font-weight:800}
+
+    .section{margin-top:32px}
+    .section h2{margin:0 0 var(--space-2);font-size:30px;letter-spacing:.2px}
+    .section .lead{color:var(--muted);margin:0 0 var(--space-3);font-size:15px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .card{border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);padding:18px}
+    .card h3{margin:0 0 var(--space-1);font-size:18px;line-height:1.4}
+    .muted{color:var(--muted);font-size:14px;line-height:1.72}
+    ul{margin:8px 0 0;padding-left:18px}
+    li{margin:4px 0}
+
+    .biz-matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .biz-main{grid-row:auto;border:1px solid var(--line);background:var(--surface)}
+    .biz-card{display:flex;flex-direction:column;gap:8px;min-height:100%}
+    .biz-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .biz-id{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:800;background:transparent;border:1px solid var(--line);color:var(--muted)}
+    .biz-title{margin:0;font-size:18px;letter-spacing:.1px}
+    .biz-tag{display:none}
+    .biz-list{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:6px;align-content:start}
+    .biz-list li{margin:0;padding:0;border:none;background:transparent;font-size:14px;color:var(--text)}
+    .biz-list li::before{content:"• ";color:var(--muted)}
+    .biz-main .biz-list{grid-template-columns:1fr 1fr}
+    .biz-card .muted{margin:0;min-height:auto}
+    .kpi .v{font-size:24px;font-weight:1000;color:var(--brand-2)}
+    .kpi .l{color:var(--muted);font-size:12px}
+    .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+    .step{padding:12px;border:1px dashed var(--line);border-radius:12px;background:var(--surface-2);text-align:center;font-size:13px;font-weight:800}
+
+    .footer{margin-top:32px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+
+    @media (max-width:980px){h1{font-size:36px}.grid-2,.grid-4,.flow{grid-template-columns:1fr}.biz-matrix{grid-template-columns:1fr}.biz-main{grid-row:auto}.biz-main .biz-list{grid-template-columns:1fr}}
+    @media print{
+      .topbar,.actions,.footer{display:none!important}
+      body{background:#fff;color:#111}
+      .cover,.hero,.card,.step{background:#fff;border-color:#cfd6e6;box-shadow:none}
+      .muted,.meta,.kpi .l{color:#555}
+      @page{size:A4;margin:14mm}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">7<b>Fit</b> · 功能型训练工作室</div>
+      <div class="actions">
+        <nav class="nav">
+          <a class="active" href="brand-marketing.html">Marketing</a>
+          <a href="coach-sop.html">Coach SOP</a>
+          <a href="ui-kit-demo.html">UI Kit</a>
+        </nav>
+        <button class="btn" id="themeToggle">浅色 / 深色</button>
+        <button class="btn primary">预约体态评估</button>
+      </div>
+    </div>
+
+    <section class="cover">
+      <h2>7Fit 品牌封面</h2>
+      <div class="meta"><span>版本：v3.4</span><span>更新时间：2026-02-18</span><span>定位：体态评估驱动型训练机构</span></div>
+    </section>
+
+    <section class="hero">
+      <h1>不是卖课时。<br/>是交付可验证的身体改变。</h1>
+      <p class="sub">7Fit 是数据驱动 + 体态干预 + 个性化周期训练的功能型训练工作室。融合力量训练、普拉提、筋膜刀、运动康复，以私教为主，小团课为辅，聚焦功能恢复、塑形提升与慢性疼痛改善。</p>
+      <div class="pills">
+        <span class="pill">体态评估驱动</span><span class="pill">私教主导</span><span class="pill">功能恢复 + 塑形</span><span class="pill">慢性疼痛改善</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>核心业务模块</h2>
+      <p class="lead">四大业务并行，但都围绕“先评估、再训练、可复评”的统一逻辑。</p>
+      <div class="biz-matrix">
+        <article class="card biz-card biz-main">
+          <div class="biz-head">
+            <h3 class="biz-title">私教训练（核心营收）</h3>
+            <span class="biz-id">01</span>
+          </div>
+          <p class="muted" style="margin:8px 0 2px">以 1v1 周期化方案交付结果，覆盖塑形、减脂、力量入门与功能提升。</p>
+          <ul class="biz-list">
+            <li>女性塑形</li>
+            <li>减脂减重</li>
+            <li>臀腿专项</li>
+            <li>马甲线核心</li>
+            <li>力量入门</li>
+            <li>功能性训练</li>
+          </ul>
+        </article>
+
+        <article class="card biz-card">
+          <div class="biz-head">
+            <h3 class="biz-title">普拉提训练</h3>
+            <span class="biz-id">02</span>
+          </div>
+          <ul class="biz-list">
+            <li>核心激活</li>
+            <li>呼吸控制</li>
+            <li>深层稳定肌</li>
+            <li>体态重建</li>
+            <li>产后恢复</li>
+          </ul>
+        </article>
+
+        <article class="card biz-card">
+          <div class="biz-head">
+            <h3 class="biz-title">筋膜刀松解</h3>
+            <span class="biz-id">03</span>
+          </div>
+          <ul class="biz-list">
+            <li>肩颈松解</li>
+            <li>背部松解</li>
+            <li>下肢松解</li>
+            <li>运动恢复</li>
+            <li>慢性疼痛干预</li>
+          </ul>
+        </article>
+
+        <article class="card biz-card">
+          <div class="biz-head">
+            <h3 class="biz-title">体态矫正专项</h3>
+            <span class="biz-id">04</span>
+          </div>
+          <ul class="biz-list">
+            <li>骨盆前倾</li>
+            <li>圆肩驼背 / 头前引</li>
+            <li>单侧肌群肥大</li>
+            <li>足弓塌陷 / 拇外翻</li>
+            <li>脊柱侧偏功能改善</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>服务对象与典型场景</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>人群画像</h3>
+          <ul>
+            <li>久坐办公人群：肩颈紧张、下背不适、体态失衡</li>
+            <li>女性塑形人群：臀腿线条、核心稳定、体脂管理</li>
+            <li>产后恢复人群：核心重建、呼吸控制、体态恢复</li>
+            <li>运动表现人群：力量基础、动作模式、伤痛预防</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>典型问题场景</h3>
+          <ul>
+            <li>训练频率高，但体型和功能表现长期停滞</li>
+            <li>疼痛反复，训练计划无法连续推进</li>
+            <li>动作代偿明显，负重提升风险变高</li>
+            <li>目标不清晰，训练缺少周期复评与调整机制</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>交付方式（你会得到什么）</h2>
+      <div class="grid-4">
+        <article class="card kpi"><div class="v">初始评估</div><div class="l">体测 + 体态 + 功能测试 + 风险分级</div></article>
+        <article class="card kpi"><div class="v">周期计划</div><div class="l">4周/8周目标拆解与动作进阶路径</div></article>
+        <article class="card kpi"><div class="v">过程纠偏</div><div class="l">每节课动作反馈、强度控制、疼痛阈值管理</div></article>
+        <article class="card kpi"><div class="v">阶段复评</div><div class="l">结果复盘 + 下一周期迭代方案</div></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>示例周期（8周）</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>第1-2周：评估与重建</h3>
+          <p class="muted">建立基础动作模式，修正代偿，降低疼痛与风险。</p>
+        </article>
+        <article class="card">
+          <h3>第3-4周：稳定与强化</h3>
+          <p class="muted">提升核心稳定与局部力量，建立可持续训练容量。</p>
+        </article>
+        <article class="card">
+          <h3>第5-6周：专项推进</h3>
+          <p class="muted">根据目标进入塑形/减脂/力量专项，强化关键部位表现。</p>
+        </article>
+        <article class="card">
+          <h3>第7-8周：复评与迭代</h3>
+          <p class="muted">对比阶段数据，确认成果与瓶颈，产出下一周期计划。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>常见问题</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Q：7Fit 和传统健身房最大区别？</h3>
+          <p class="muted">7Fit 不是“卖课时”，而是以评估和复评为核心，交付可验证结果。</p>
+        </article>
+        <article class="card">
+          <h3>Q：有疼痛问题还能训练吗？</h3>
+          <p class="muted">可以。先做风险分级与动作降级，按疼痛阈值动态调整方案。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>下一步</h2>
+      <div class="card">
+        <p class="muted">建议先预约一次完整评估（体测 + 体态 + 功能），拿到你的个性化周期路线图，再进入正式训练。</p>
+        <div class="actions" style="margin-top:10px">
+          <button class="btn primary">预约首评</button>
+          <button class="btn">查看课程路径</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7Fit 核心训练理念</h2>
+      <div class="flow">
+        <div class="step">评估</div><div class="step">分析</div><div class="step">定制</div><div class="step">执行</div><div class="step">复评</div><div class="step">迭代</div>
+      </div>
+      <div class="grid-2" style="margin-top:10px">
+        <div class="card"><h3>训练必须基于</h3><ul><li>体测数据</li><li>体态问题</li><li>功能测试</li><li>目标需求</li><li>器械条件</li></ul></div>
+        <div class="card"><h3>为什么有效</h3><p class="muted">每阶段有明确输入、动作策略与复评节点，避免“盲练”和无效堆课。用户知道每一步做什么、为什么做、做到哪里。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>机构价值指标</h2>
+      <div class="grid-4">
+        <div class="card kpi"><div class="v">1v1</div><div class="l">私教主导执行</div></div>
+        <div class="card kpi"><div class="v">6步</div><div class="l">标准闭环流程</div></div>
+        <div class="card kpi"><div class="v">4大</div><div class="l">业务模块协同</div></div>
+        <div class="card kpi"><div class="v">可复评</div><div class="l">结果可追踪可迭代</div></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>7Fit Marketing v3.4</span>
+      <span>建议配套阅读：coach-sop.html / ui-kit-demo.html</span>
+    </footer>
+  </div>
+
+<script>
+(()=>{const k='7fit-theme';const r=document.documentElement;const s=localStorage.getItem(k);if(s)r.setAttribute('data-theme',s);document.getElementById('themeToggle').onclick=()=>{const n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem(k,n);};})();
+</script>
+</body>
+</html>

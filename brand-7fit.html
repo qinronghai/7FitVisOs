@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>7Fit｜品牌定位与品牌故事（Brand Blueprint v1）</title>
+  <style>
+    :root{
+      --bg:#0d1018;
+      --bg-soft:#141b28;
+      --card:#181f2f;
+      --line:#2a3448;
+      --text:#f2f6ff;
+      --muted:#9da9bf;
+      --brand:#9566f2;
+      --brand-2:#c6b3ff;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --radius:18px;
+      --shadow:0 18px 42px rgba(0,0,0,.36);
+      --sans:"PingFang SC","Microsoft YaHei","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 420px at 0% 0%, rgba(149,102,242,.24), transparent 58%),
+        radial-gradient(1000px 420px at 100% 0%, rgba(255,255,255,.06), transparent 62%),
+        var(--bg);
+      line-height:1.68;
+    }
+    .wrap{max-width:var(--max);margin:0 auto;padding:34px 18px 60px}
+    .hero{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(165deg, rgba(149,102,242,.16), rgba(24,31,47,.95));
+      box-shadow:var(--shadow);
+      padding:34px;
+    }
+    .k{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.2px;padding:6px 10px;border:1px solid rgba(198,179,255,.45);border-radius:999px;color:var(--brand-2);background:rgba(149,102,242,.15)}
+    h1{margin:14px 0 8px;font-size:38px;line-height:1.18}
+    .sub{margin:0;color:var(--muted);max-width:72ch}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:18px}
+    .title{margin:0 0 8px;font-size:20px}
+    .desc{margin:0;color:var(--muted);font-size:14px}
+    .point{margin:10px 0 0;padding-left:18px;color:#dfe7ff;font-size:14px}
+    .point li{margin:6px 0}
+    .quote{margin-top:10px;border-left:3px solid var(--brand);padding:10px 12px;background:rgba(149,102,242,.1);border-radius:10px;color:#e8ddff;font-size:14px}
+    .section{margin-top:26px}
+    .secHead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:10px}
+    .secHead h2{margin:0;font-size:26px}
+    .secHead p{margin:0;color:var(--muted);font-size:13px}
+    .tag{display:inline-block;padding:5px 9px;border:1px solid var(--line);border-radius:999px;font-size:11px;color:var(--muted);margin:0 6px 6px 0}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 11px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+    th{text-align:left;color:var(--muted);font-weight:900}
+    tr:last-child td{border-bottom:none}
+    .story{font-size:15px;color:#edf3ff}
+    .story p{margin:0 0 12px}
+    .code{margin:0;padding:12px;border-radius:12px;background:#0a1020;border:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:12px;color:#e6eeff;white-space:pre-wrap}
+    .footer{margin-top:26px;text-align:center;color:var(--muted);font-size:12px}
+    @media (max-width:980px){
+      h1{font-size:30px}
+      .grid2,.grid3{grid-template-columns:1fr}
+      .hero{padding:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="k">Brand Blueprint v1</span>
+      <h1>7Fit 不是“卖课时”的健身房，<br>而是<strong style="color:var(--brand-2)">数据驱动的功能型训练工作室</strong></h1>
+      <p class="sub">你给的背景非常清晰：7Fit的核心价值是「评估 → 分析 → 定制 → 执行 → 复评 → 迭代」。这决定了品牌不是“激情喊口号”，而是“专业系统 + 可验证结果”。</p>
+      <div class="grid3">
+        <div class="card"><div class="title">品牌角色</div><p class="desc">训练决策系统（不是课程货架）</p></div>
+        <div class="card"><div class="title">业务核心</div><p class="desc">私教主导，小团课辅助，康复与塑形并重</p></div>
+        <div class="card"><div class="title">用户承诺</div><p class="desc">每次训练都可追溯、可解释、可迭代</p></div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="secHead"><h2>01｜7Fit是什么样的工作室？</h2><p>机构属性分析</p></div>
+      <div class="grid2">
+        <div class="card">
+          <h3 class="title">业务模型判断</h3>
+          <ul class="point">
+            <li><b>核心营收</b>来自私教训练，不是大盘散客。</li>
+            <li>“普拉提 + 筋膜刀 + 功能康复”构成差异化服务链。</li>
+            <li>适合建立高复购、高信任、高客单的长期关系。</li>
+            <li>训练成果应以阶段数据与复评记录呈现，而非口头承诺。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="title">品牌定位结论</h3>
+          <p class="desc">7Fit = <b>体态评估驱动的功能训练系统</b>。它的竞争对手并不是“办卡型健身房”，而是提供“定制恢复 + 科学塑形 + 进阶训练”能力的专业机构。</p>
+          <div class="quote">一句话定位：<br><b>“把训练从‘盲练’升级为‘可验证的体态与功能改造工程’。”</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secHead"><h2>02｜品牌金字塔（Brand Pyramid）</h2><p>从价值到底层证据</p></div>
+      <div class="card">
+        <table>
+          <thead><tr><th style="width:22%">层级</th><th>7Fit定义</th><th>可证明证据</th></tr></thead>
+          <tbody>
+            <tr><td><b>Purpose</b></td><td>帮助用户重建身体功能与体态自信</td><td>阶段评估、痛点改善记录、训练前后对照</td></tr>
+            <tr><td><b>Vision</b></td><td>成为城市功能型训练工作室标杆</td><td>标准化评估流程 + 数据化训练闭环</td></tr>
+            <tr><td><b>Mission</b></td><td>用科学训练替代经验主义盲练</td><td>训练处方基于体测、体态、功能测试与目标</td></tr>
+            <tr><td><b>Values</b></td><td>专业、诚实、长期主义、可迭代</td><td>不夸大承诺、强调复评与更新</td></tr>
+            <tr><td><b>Benefit</b></td><td>更稳定的身形改善与疼痛管理</td><td>结构化周期计划 + 风险降级机制</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secHead"><h2>03｜用户分层与需求（JTBD）</h2><p>沟通必须按人群说话</p></div>
+      <div class="grid3">
+        <div class="card">
+          <h3 class="title">A类：塑形女性</h3>
+          <p class="desc">目标：臀腿线条、核心稳定、体脂管理</p>
+          <div class="tag">情绪词：自信</div><div class="tag">结果词：看得见变化</div>
+        </div>
+        <div class="card">
+          <h3 class="title">B类：久坐疼痛人群</h3>
+          <p class="desc">目标：肩颈、下背、骨盆失衡改善</p>
+          <div class="tag">情绪词：安心</div><div class="tag">结果词：不再反复痛</div>
+        </div>
+        <div class="card">
+          <h3 class="title">C类：训练进阶者</h3>
+          <p class="desc">目标：力量与功能表现提升，避免代偿</p>
+          <div class="tag">情绪词：掌控</div><div class="tag">结果词：更强更稳</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secHead"><h2>04｜品牌故事（可直接用于官网/手册）</h2><p>Narrative</p></div>
+      <div class="card story">
+        <p>很多人以为训练的答案是“再拼一点”。但在7Fit，我们见过太多努力的人，仍旧被圆肩、骨盆前倾、肩颈紧张和反复疼痛困住。</p>
+        <p>我们发现，问题往往不在“练得不够”，而在“练得不对”。于是，7Fit从第一天起就不是一家卖课时的地方。我们把训练当成一套可以被验证、被追踪、被迭代的系统工程。</p>
+        <p>每一位会员，从评估开始：体测数据、体态分析、功能测试、目标需求、器械条件。然后才进入定制方案：力量训练、普拉提、筋膜松解、功能恢复协同推进。执行中持续记录，复评后及时调整，让每一次训练都更接近身体真正需要的方向。</p>
+        <p>在7Fit，我们相信“好身材”与“好功能”不该对立。你可以更好看，也可以更稳定、更有力、更不容易痛。我们不承诺神话，我们只坚持科学、专业和长期主义——让身体在正确的路径上，稳步变好。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secHead"><h2>05｜品牌话术与传播母句</h2><p>用于海报/短视频/官网</p></div>
+      <div class="grid2">
+        <div class="card">
+          <h3 class="title">主Slogan候选</h3>
+          <ul class="point">
+            <li>7Fit：让训练有据可循。</li>
+            <li>从体态出发，为结果负责。</li>
+            <li>不是盲练，是可验证的改变。</li>
+            <li>科学训练，让身体稳步变好。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="title">话术风格（Tone of Voice）</h3>
+          <ul class="point">
+            <li><b>专业但不高冷</b>：讲清原理，不炫术语。</li>
+            <li><b>坚定但不夸张</b>：不用“包治包好”。</li>
+            <li><b>支持型表达</b>：强调长期进步与可持续。</li>
+          </ul>
+          <p class="quote">推荐句式：<br>“基于你的评估结果，本阶段我们优先解决___，再进阶到___。”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secHead"><h2>06｜品牌资产命名建议</h2><p>便于团队协同</p></div>
+      <div class="card">
+        <pre class="code">文件命名：7fit_{module}_{type}_{size}_v{n}
+示例：
+7fit_brand_story_web_1920x1080_v1
+7fit_poster_posture_a3_v2
+7fit_service_private_training_1080x1350_v1
+
+模块建议：
+brand / service / report / social / campaign / studio</pre>
+      </div>
+    </section>
+
+    <div class="footer">7Fit Brand Blueprint v1 · 由你提供的业务背景抽象而成，可直接作为品牌手册第一章</div>
+  </div>
+</body>
+</html>

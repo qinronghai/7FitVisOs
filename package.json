@@ -1,0 +1,7 @@
+{
+  "name": "7fit-visos",
+  "private": true,
+  "scripts": {
+    "check:tokens": "node ./scripts/check-tokens.js"
+  }
+}

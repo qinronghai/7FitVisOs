@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>7Fit｜Visual OS v4.5（评估驱动型完整视觉设计系统）</title>
+  <link rel="stylesheet" href="./styles/tokens.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+  <link rel="stylesheet" href="./styles/page-visos.css" />
+  <style media="not all">
+    /* =========================================================
+      7Fit Visual OS v4.5
+      定位：专业、克制、高效、可执行
+      适用：Web / 小程序 / App / DOCX / PDF / 门店物料
+    ========================================================= */
+
+    :root{
+      /* ---------- Primitive Tokens ---------- */
+      --violet-900:#4b2ca8;
+      --violet-800:#5b36c2;
+      --violet-700:#6b44d8;
+      --violet-600:#7c56e8;
+      --violet-500:#9566f2;
+      --violet-400:#ab86f7;
+      --violet-300:#c8b1fb;
+      --violet-200:#e2d6ff;
+      --violet-100:#f1ebff;
+
+      --gray-950:#0d0f14;
+      --gray-900:#12161f;
+      --gray-800:#1d2433;
+      --gray-700:#2d3648;
+      --gray-600:#4b5568;
+      --gray-500:#6b7280;
+      --gray-400:#98a2b3;
+      --gray-300:#d0d5dd;
+      --gray-200:#e4e7ec;
+      --gray-100:#f2f4f7;
+      --gray-50:#f8f9fc;
+      --white:#ffffff;
+      --black:#000000;
+
+      --green-600:#16a34a;
+      --amber-500:#f59e0b;
+      --red-600:#dc2626;
+      --blue-600:#2563eb;
+
+      /* ---------- Semantic Tokens (Light) ---------- */
+      --bg-page:var(--white);
+      --bg-subtle:var(--gray-50);
+      --bg-surface:var(--white);
+      --bg-brand-soft:var(--violet-100);
+
+      --text-primary:#111827;
+      --text-secondary:#4b5563;
+      --text-tertiary:#6b7280;
+      --text-on-brand:#ffffff;
+
+      --border-default:#e5e7eb;
+      --border-strong:#d0d5dd;
+      --focus-ring:rgba(149,102,242,.28);
+
+      --brand:var(--violet-500);
+      --brand-hover:var(--violet-700);
+      --brand-active:var(--violet-800);
+
+      --success:var(--green-600);
+      --warning:var(--amber-500);
+      --danger:var(--red-600);
+      --info:var(--blue-600);
+
+      /* ---------- Typography ---------- */
+      --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+      --font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+
+      --fs-display:40px;
+      --fs-h1:32px;
+      --fs-h2:24px;
+      --fs-h3:20px;
+      --fs-body-l:16px;
+      --fs-body-m:14px;
+      --fs-cap:12px;
+      --lh-tight:1.25;
+      --lh-body:1.65;
+
+      /* ---------- Radius / Shadow ---------- */
+      --r-2:8px;
+      --r-3:12px;
+      --r-4:16px;
+      --r-5:20px;
+      --r-pill:999px;
+
+      --shadow-1:0 6px 18px rgba(15,23,42,.06);
+      --shadow-2:0 12px 28px rgba(15,23,42,.08);
+      --shadow-3:0 18px 44px rgba(15,23,42,.12);
+
+      /* ---------- Spacing ---------- */
+      --s1:4px;
+      --s2:8px;
+      --s3:12px;
+      --s4:16px;
+      --s5:20px;
+      --s6:24px;
+      --s7:32px;
+      --s8:40px;
+      --s9:48px;
+      --s10:56px;
+
+      --max:1240px;
+      --side:320px;
+    }
+
+    [data-theme="dark"]{
+      --bg-page:#0b0e15;
+      --bg-subtle:#121826;
+      --bg-surface:#141b29;
+      --bg-brand-soft:rgba(149,102,242,.16);
+
+      --text-primary:#f3f6ff;
+      --text-secondary:#c5ccda;
+      --text-tertiary:#97a2b8;
+      --text-on-brand:#ffffff;
+
+      --border-default:#2a3448;
+      --border-strong:#3a465f;
+      --focus-ring:rgba(149,102,242,.38);
+
+      --shadow-1:0 6px 18px rgba(0,0,0,.28);
+      --shadow-2:0 12px 28px rgba(0,0,0,.34);
+      --shadow-3:0 18px 44px rgba(0,0,0,.42);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      color:var(--text-primary);
+      background:
+        radial-gradient(1200px 420px at 5% 0%, rgba(149,102,242,.16), transparent 55%),
+        radial-gradient(960px 380px at 100% 0%, rgba(13,15,20,.08), transparent 60%),
+        linear-gradient(180deg,var(--bg-page),var(--bg-subtle));
+      line-height:var(--lh-body);
+    }
+
+    a{color:inherit;text-decoration:none}
+    code{font-family:var(--font-mono)}
+
+    .app{display:grid; grid-template-columns:var(--side) 1fr; min-height:100vh}
+
+    .side{
+      position:sticky; top:0; height:100vh; overflow:auto;
+      padding:var(--s6);
+      border-right:1px solid var(--border-default);
+      background:color-mix(in srgb, var(--bg-surface) 86%, transparent);
+      backdrop-filter:saturate(120%) blur(10px);
+    }
+
+    .brandCard{
+      border:1px solid var(--border-default);
+      border-radius:var(--r-5);
+      background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 8%, var(--bg-surface)),var(--bg-surface));
+      box-shadow:var(--shadow-2);
+      padding:14px;
+      display:flex; gap:12px; align-items:center;
+    }
+
+    .mark{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--brand);color:#fff;font-weight:1000;box-shadow:0 12px 26px rgba(149,102,242,.28)}
+    .brandText .t{font-size:14px;font-weight:1000;letter-spacing:.2px}
+    .brandText .s{font-size:12px;color:var(--text-tertiary)}
+
+    .meta{margin-top:12px;border:1px solid var(--border-default);border-radius:var(--r-5);padding:12px;background:var(--bg-surface)}
+    .row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .row+.row{margin-top:8px}
+    .k{font-size:11px;color:var(--text-tertiary);font-weight:900}
+    .v{font-size:12px;color:var(--brand);font-weight:1000;font-family:var(--font-mono)}
+
+    .chips{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .chip{font-size:11px;padding:5px 10px;border-radius:999px;border:1px solid var(--border-default);background:var(--bg-subtle);color:var(--text-secondary);font-weight:900}
+    .chip.brand{border-color:color-mix(in srgb,var(--brand) 36%, var(--border-default));background:var(--bg-brand-soft);color:var(--violet-700)}
+
+    .nav{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+    .nav a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid transparent;color:var(--text-secondary);font-size:13px;font-weight:800}
+    .nav a:hover{background:var(--bg-brand-soft);border-color:color-mix(in srgb,var(--brand) 26%, var(--border-default));color:var(--text-primary)}
+    .pill{font-size:10px;padding:3px 8px;border-radius:999px;border:1px solid var(--border-default);background:var(--bg-surface);color:var(--text-tertiary)}
+
+    .sideFoot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--border-default);font-size:12px;color:var(--text-tertiary)}
+
+    .main{padding:var(--s8) var(--s7)}
+    .wrap{max-width:var(--max);margin:0 auto}
+
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      margin:-40px -32px 26px -32px;padding:16px 32px;
+      border-bottom:1px solid var(--border-default);
+      background:color-mix(in srgb, var(--bg-surface) 76%, transparent);
+      backdrop-filter:saturate(120%) blur(10px);
+      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;
+    }
+
+    .h{margin:0;font-size:13px;font-weight:1000}
+    .p{margin:0;font-size:12px;color:var(--text-tertiary)}
+
+    .btn{appearance:none;cursor:pointer;border:1px solid var(--border-default);background:var(--bg-surface);color:var(--text-primary);padding:10px 12px;border-radius:12px;font-size:12px;font-weight:900;display:inline-flex;align-items:center;gap:8px}
+    .btn:hover{background:var(--bg-brand-soft);border-color:color-mix(in srgb,var(--brand) 30%, var(--border-default))}
+    .btnPrimary{background:var(--brand);color:#fff;border-color:transparent;box-shadow:0 14px 30px rgba(149,102,242,.28)}
+    .btnPrimary:hover{background:var(--brand-hover)}
+
+    section{margin-top:var(--s10)}
+    .secHead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+    .secTitle{margin:0;font-size:24px;line-height:1.25}
+    .secDesc{margin:0;color:var(--text-tertiary);font-size:13px;max-width:72ch}
+
+    .card{border:1px solid var(--border-default);border-radius:var(--r-5);background:var(--bg-surface);box-shadow:var(--shadow-2);padding:var(--s6)}
+    .sub{border:1px solid var(--border-default);border-radius:var(--r-4);background:var(--bg-subtle);padding:14px}
+
+    .hero{padding:var(--s8);position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;right:-160px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(149,102,242,.14)}
+    .heroGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;position:relative;z-index:1}
+    .titleXL{margin:0 0 10px 0;font-size:36px;line-height:1.18;letter-spacing:-.6px}
+    .titleXL .accent{color:var(--brand)}
+
+    .rules{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+    .rule{font-size:12px;font-weight:900;padding:7px 11px;border-radius:999px;background:var(--bg-brand-soft);color:var(--violet-700);border:1px solid color-mix(in srgb,var(--brand) 24%, var(--border-default))}
+
+    .kpis{display:grid;gap:10px}
+    .kpi{border:1px solid var(--border-default);border-radius:14px;padding:12px;background:var(--bg-surface);display:flex;justify-content:space-between;gap:10px}
+    .kpi .t{font-size:11px;color:var(--text-tertiary);font-weight:900}
+    .kpi .v{margin-top:4px;font-size:15px;font-weight:1000;color:var(--text-primary)}
+    .badge{font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid var(--border-default);color:var(--text-tertiary);background:var(--bg-subtle);height:max-content}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+    .table{border:1px solid var(--border-default);border-radius:14px;overflow:hidden}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    th,td{padding:10px 12px;border-bottom:1px solid var(--border-default);font-size:12px;vertical-align:top}
+    th{text-align:left;background:var(--bg-subtle);color:var(--text-tertiary);font-weight:1000}
+    tr:last-child td{border-bottom:none}
+
+    .swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+    .sw{border:1px solid var(--border-default);border-radius:14px;overflow:hidden;background:var(--bg-surface)}
+    .sw .c{height:64px}
+    .sw .m{padding:10px}
+    .sw .n{margin:0;font-size:11px;font-weight:1000}
+    .sw .x{margin:4px 0 0 0;font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono)}
+
+    .list{margin:0;padding-left:18px;color:var(--text-secondary);font-size:12px}
+    .list li{margin:6px 0}
+
+    .note{margin-top:10px;font-size:12px;color:var(--text-secondary);padding:10px 12px;border-left:3px solid color-mix(in srgb,var(--brand) 70%, #fff);background:var(--bg-subtle);border-radius:10px}
+
+    pre{margin:0;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0a1020;color:#eaf0ff;font-size:12px;font-family:var(--font-mono);overflow:auto}
+
+    .checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .check{border:1px solid var(--border-default);border-radius:14px;padding:12px;background:var(--bg-surface)}
+    .check .h{font-size:13px;margin:0 0 8px 0}
+
+    .example-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .example{border:1px solid var(--border-default);border-radius:14px;background:var(--bg-surface);padding:12px}
+    .example .ttl{font-size:12px;font-weight:1000;margin:0 0 8px 0;color:var(--text-secondary)}
+    .example .rowx{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btnGhost{background:transparent}
+    .btnDanger{background:var(--danger);border-color:transparent;color:#fff}
+    .btnSoft{background:var(--bg-brand-soft);border-color:color-mix(in srgb,var(--brand) 30%, var(--border-default));color:var(--brand)}
+    .btnLoading{opacity:.75;pointer-events:none}
+
+    .field{display:grid;gap:6px}
+    .labelx{font-size:11px;font-weight:900;color:var(--text-secondary)}
+    .inputx{height:40px;border:1px solid var(--border-default);border-radius:10px;background:var(--bg-surface);padding:0 10px;color:var(--text-primary);font-size:13px}
+    .inputx:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--focus-ring)}
+    .inputx.error{border-color:var(--danger);background:color-mix(in srgb,var(--danger) 8%, var(--bg-surface))}
+    .help{font-size:11px;color:var(--text-tertiary)}
+    .help.err{color:var(--danger)}
+
+    .viz{display:grid;gap:10px}
+    .chart{border:1px solid var(--border-default);border-radius:12px;background:var(--bg-surface);padding:10px}
+    .line-legend{display:flex;gap:10px;font-size:11px;color:var(--text-tertiary);margin-bottom:6px}
+    .dot{width:8px;height:8px;border-radius:999px;display:inline-block}
+    .dot.p{background:var(--brand)} .dot.g{background:var(--gray-400)}
+    .bars{display:grid;gap:8px}
+    .bar{display:grid;grid-template-columns:72px 1fr 48px;gap:8px;align-items:center;font-size:11px}
+    .track{height:8px;border-radius:999px;background:var(--bg-subtle);overflow:hidden}
+    .fill{height:100%;background:var(--brand)}
+    .risk{display:grid;gap:6px}
+    .risk .seg{display:grid;grid-template-columns:1fr 1fr 1fr;height:12px;border-radius:999px;overflow:hidden;border:1px solid var(--border-default)}
+    .risk .seg span:nth-child(1){background:#16a34a}
+    .risk .seg span:nth-child(2){background:#f59e0b}
+    .risk .seg span:nth-child(3){background:#dc2626}
+
+    .device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .device{border:1px solid var(--border-default);border-radius:14px;padding:10px;background:var(--bg-surface)}
+    .device h4{margin:0 0 8px;font-size:12px;color:var(--text-secondary)}
+    .wire{border:1px dashed var(--border-default);border-radius:10px;padding:8px;display:grid;gap:8px;background:var(--bg-subtle)}
+    .wire .blk{height:10px;border-radius:6px;background:color-mix(in srgb,var(--brand) 18%, var(--bg-surface))}
+    .wire .blk.s{width:62%}
+    .wire .btnline{height:26px;border-radius:8px;background:color-mix(in srgb,var(--brand) 30%, var(--bg-surface))}
+
+    @media (max-width:1100px){
+      .example-grid,.device-grid{grid-template-columns:1fr}
+    }
+
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(17,24,39,.92);color:#fff;font-size:12px;font-weight:900;padding:10px 12px;border-radius:999px;opacity:0;pointer-events:none;transition:.15s ease;z-index:9999}
+    .toast.show{opacity:1}
+
+    @media (max-width:1100px){
+      .app{grid-template-columns:1fr}
+      .side{position:relative;height:auto}
+      .main{padding:24px 14px}
+      .topbar{margin:-24px -14px 20px -14px;padding:14px}
+      .heroGrid,.grid2,.grid3,.checks{grid-template-columns:1fr}
+      .swatches{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <div class="app" data-theme="light" id="appRoot">
+    <aside class="side" aria-label="7Fit Visual OS 导航">
+      <div class="brandCard">
+        <div class="mark">7</div>
+        <div class="brandText">
+          <div class="t">7Fit Visual OS v4.5</div>
+          <div class="s">更完整 · 更细致 · 可直接落地</div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="row"><span class="k">主色</span><span class="v">#9566F2</span></div>
+        <div class="row"><span class="k">强调色占比</span><span class="v">≤ 15%</span></div>
+        <div class="row"><span class="k">基线网格</span><span class="v">8pt</span></div>
+        <div class="chips">
+          <span class="chip brand">克制</span>
+          <span class="chip brand">结构感</span>
+          <span class="chip brand">专业</span>
+          <span class="chip">数据可信</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#overview">总览 <span class="pill">Overview</span></a>
+        <a href="#brand-core">品牌与业务画像 <span class="pill">Brand Core</span></a>
+        <a href="#principles">设计原则 <span class="pill">Principles</span></a>
+        <a href="#logo">Logo规范 <span class="pill">Logo</span></a>
+        <a href="#color">色彩系统 <span class="pill">Color</span></a>
+        <a href="#type">字体排版 <span class="pill">Type</span></a>
+        <a href="#spacing">栅格与间距 <span class="pill">Layout</span></a>
+        <a href="#motion">动效规范 <span class="pill">Motion</span></a>
+        <a href="#components">组件矩阵 <span class="pill">UI</span></a>
+        <a href="#component-spec">组件解剖与状态规范 <span class="pill">Anatomy</span></a>
+        <a href="#responsive">响应式规范 <span class="pill">Responsive</span></a>
+        <a href="#dataviz">数据可视化规范 <span class="pill">DataViz</span></a>
+        <a href="#templates">页面模板 <span class="pill">Templates</span></a>
+        <a href="#docs">文档导出 <span class="pill">DOCX/PDF</span></a>
+        <a href="#a11y">无障碍与合规 <span class="pill">A11y</span></a>
+        <a href="#tokens">设计Tokens <span class="pill">Tokens</span></a>
+        <a href="#governance">治理与版本 <span class="pill">Versioning</span></a>
+        <a href="#qa">发布检查 <span class="pill">QA</span></a>
+      </nav>
+
+      <div class="sideFoot">v4.5 重点：新增 Example Pack（组件状态样例、图表示例、三端响应式对照）用于直接落地。</div>
+    </aside>
+
+    <main class="main">
+      <div class="wrap">
+        <div class="topbar">
+          <div>
+            <p class="h">7Fit Visual OS v4.5</p>
+            <p class="p">统一品牌、界面、文档、海报的视觉真相源（评估驱动型训练工作室版）</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" id="themeBtn">切换深色预览</button>
+            <button class="btn btnPrimary" data-copy="#token-css">复制 CSS Tokens</button>
+            <button class="btn" data-copy="#token-json">复制 JSON Tokens</button>
+          </div>
+        </div>
+
+        <section id="overview">
+          <div class="card hero">
+            <div class="heroGrid">
+              <div>
+                <h1 class="titleXL">7Fit 视觉设计系统 <span class="accent">Visual OS</span></h1>
+                <p class="p" style="font-size:14px;color:var(--text-secondary)">
+                  本规范解决三件事：
+                  <b>一致性</b>（不同设计师做出来像一个品牌）、
+                  <b>效率</b>（复用而非重做）、
+                  <b>可执行</b>（设计可直接映射到开发和文档）。
+                </p>
+                <div class="rules">
+                  <span class="rule">品牌紫只做强调（≤15%）</span>
+                  <span class="rule">信息先分层再美化</span>
+                  <span class="rule">同组件同规则</span>
+                </div>
+              </div>
+              <div class="kpis">
+                <div class="kpi"><div><div class="t">覆盖范围</div><div class="v">Web / App / 小程序 / 打印物</div></div><span class="badge">全渠道</span></div>
+                <div class="kpi"><div><div class="t">Token 结构</div><div class="v">Primitive → Semantic → Component</div></div><span class="badge">可扩展</span></div>
+                <div class="kpi"><div><div class="t">执行输出</div><div class="v">规范 + 模板 + QA + 版本治理</div></div><span class="badge">可落地</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="brand-core">
+          <div class="secHead"><h2 class="secTitle">0. 7Fit 品牌与业务画像（策略锚点）</h2><p class="secDesc">视觉系统必须服务业务模型：7Fit是评估驱动型功能训练工作室，而非传统办卡健身房。</p></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">机构本质（What）</h3>
+              <ul class="list">
+                <li><b>定位</b>：体态评估驱动型训练机构（私教为主，小团课为辅）。</li>
+                <li><b>方法</b>：力量训练 + 普拉提 + 筋膜刀 + 运动康复协同。</li>
+                <li><b>价值</b>：功能恢复 + 塑形提升 + 慢性疼痛改善并行。</li>
+              </ul>
+              <div class="note">视觉含义：强调“专业与可信”，避免商业健身房常见的躁动与促销感。</div>
+            </div>
+            <div class="card">
+              <h3 class="h">核心业务（How）</h3>
+              <div class="table"><table><thead><tr><th>模块</th><th>7Fit重点</th></tr></thead><tbody>
+                <tr><td>私教训练</td><td>女性塑形、减脂、臀腿、马甲线、力量入门、功能训练</td></tr>
+                <tr><td>普拉提</td><td>核心激活、呼吸控制、深层稳定肌、体态重建、产后恢复</td></tr>
+                <tr><td>筋膜刀松解</td><td>肩颈/背部/下肢松解，运动恢复，慢性疼痛干预</td></tr>
+                <tr><td>体态矫正专项</td><td>骨盆前倾、圆肩驼背、头前引、足弓塌陷、拇外翻等功能改善</td></tr>
+              </tbody></table></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px">
+            <h3 class="h">训练闭环（Why it works）</h3>
+            <div class="rules" style="margin-top:8px">
+              <span class="rule">评估</span>
+              <span class="rule">分析</span>
+              <span class="rule">定制</span>
+              <span class="rule">执行</span>
+              <span class="rule">复评</span>
+              <span class="rule">迭代</span>
+            </div>
+            <div class="note">品牌故事主轴建议：<b>“7Fit不卖课时，卖可验证的身体改变路径。”</b></div>
+          </div>
+        </section>
+
+        <section id="principles">
+          <div class="secHead"><h2 class="secTitle">1. 设计原则（必须统一）</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <div class="grid2">
+                <div class="sub"><b>清晰优先</b><div class="p">任何页面先保证“3秒可扫描”，再追求视觉表现。</div></div>
+                <div class="sub"><b>行动导向</b><div class="p">每屏只保留1个主行动CTA，避免按钮竞争。</div></div>
+                <div class="sub"><b>数据可信</b><div class="p">指标使用等宽数字，对齐稳定，避免跳动与错读。</div></div>
+                <div class="sub"><b>克制统一</b><div class="p">颜色、圆角、间距不随页面自由发挥。</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="table"><table><thead><tr><th>设计判断题</th><th>通过标准</th></tr></thead><tbody>
+                <tr><td>强调是否过多？</td><td>品牌紫面积 ≤ 15%，且仅用于CTA、状态、关键数字。</td></tr>
+                <tr><td>层级是否明确？</td><td>标题 / 标签 / 指标 / 内容 / 操作 五层清楚。</td></tr>
+                <tr><td>是否“一个品牌”感？</td><td>组件圆角、边框、字体、阴影与主规范一致。</td></tr>
+                <tr><td>是否可交付开发？</td><td>每个样式都能映射到token或组件变量。</td></tr>
+              </tbody></table></div>
+              <div class="note">典型问题来源：间距不足 + 强调过量 + 组件状态缺失。</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="logo">
+          <div class="secHead"><h2 class="secTitle">2. Logo 规范</h2><p class="secDesc">确保在数字端与印刷端保持同等识别强度。</p></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">安全区与最小尺寸</h3>
+              <ul class="list">
+                <li>安全区：四周 ≥ 0.5 ×“F”字高度。</li>
+                <li>数字端最小宽度：120px；印刷端最小宽度：22mm。</li>
+                <li>反白版本：深底优先白字，不加描边不加发光。</li>
+              </ul>
+              <div class="note">禁止：拉伸、旋转、渐变描边、重阴影、改字形、贴边摆放。</div>
+            </div>
+            <div class="card">
+              <h3 class="h">Logo 资产清单</h3>
+              <div class="table"><table><thead><tr><th>版本</th><th>格式</th><th>用途</th></tr></thead><tbody>
+                <tr><td>Primary（彩色）</td><td>SVG / PNG</td><td>网页头部、社媒、官方文档封面</td></tr>
+                <tr><td>Monochrome Black</td><td>SVG / PNG</td><td>浅底印刷、黑白快印</td></tr>
+                <tr><td>Monochrome White</td><td>SVG / PNG</td><td>深底海报、门店屏幕</td></tr>
+                <tr><td>Icon Mark</td><td>SVG / PNG</td><td>favicon、App图标角标、小尺寸场景</td></tr>
+              </tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="color">
+          <div class="secHead"><h2 class="secTitle">3. 色彩系统（含比例规则）</h2></div>
+          <div class="card">
+            <div class="swatches">
+              <div class="sw"><div class="c" style="background:#9566F2"></div><div class="m"><p class="n">Brand/500</p><p class="x">#9566F2</p></div></div>
+              <div class="sw"><div class="c" style="background:#6B44D8"></div><div class="m"><p class="n">Brand/700</p><p class="x">#6B44D8</p></div></div>
+              <div class="sw"><div class="c" style="background:#F1EBFF"></div><div class="m"><p class="n">Brand/100</p><p class="x">#F1EBFF</p></div></div>
+              <div class="sw"><div class="c" style="background:#111827"></div><div class="m"><p class="n">Text/Primary</p><p class="x">#111827</p></div></div>
+              <div class="sw"><div class="c" style="background:#E5E7EB"></div><div class="m"><p class="n">Border</p><p class="x">#E5E7EB</p></div></div>
+              <div class="sw"><div class="c" style="background:#F8F9FC"></div><div class="m"><p class="n">Bg/Subtle</p><p class="x">#F8F9FC</p></div></div>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="sub">
+                <b>推荐占比（默认界面）</b>
+                <ul class="list">
+                  <li>中性色（黑/灰/白）：70%–85%</li>
+                  <li>品牌紫：8%–15%</li>
+                  <li>状态色（成功/警告/错误/信息）：≤8%</li>
+                </ul>
+              </div>
+              <div class="sub">
+                <b>颜色用途边界</b>
+                <ul class="list">
+                  <li>紫色用于 CTA、重点标签、关键数据、选中态。</li>
+                  <li>正文、说明、长文档禁止大段紫色文本。</li>
+                  <li>错误状态需“颜色 + 图标/文案”双重表达。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="type">
+          <div class="secHead"><h2 class="secTitle">4. 字体与排版</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <div class="table"><table><thead><tr><th>层级</th><th>字号/行高</th><th>字重</th><th>用途</th></tr></thead><tbody>
+                <tr><td>Display</td><td>40 / 48</td><td>700</td><td>品牌视觉大标题</td></tr>
+                <tr><td>H1</td><td>32 / 40</td><td>700</td><td>页面主标题</td></tr>
+                <tr><td>H2</td><td>24 / 32</td><td>700</td><td>模块标题</td></tr>
+                <tr><td>H3</td><td>20 / 28</td><td>600</td><td>分组标题</td></tr>
+                <tr><td>Body-L</td><td>16 / 24</td><td>400/500</td><td>正文与说明</td></tr>
+                <tr><td>Body-M</td><td>14 / 22</td><td>400/500</td><td>表单/描述文本</td></tr>
+                <tr><td>Caption</td><td>12 / 18</td><td>500</td><td>辅助信息/标签</td></tr>
+              </tbody></table></div>
+            </div>
+            <div class="card">
+              <h3 class="h">数字排版规则（强制）</h3>
+              <ul class="list">
+                <li>关键指标使用等宽数字（Tabular / Mono）确保对齐。</li>
+                <li>同一模块单位位置固定（如“kg”“%”不要漂移）。</li>
+                <li>变化值统一样式：↑ + 绿色 / ↓ + 红色（结合语义）。</li>
+              </ul>
+              <div class="sub" style="margin-top:8px">
+                <div style="font-family:var(--font-mono);font-size:18px;font-weight:1000;color:var(--brand)">18.6% · 72.4kg · +1.3cm</div>
+                <div class="p">指标样式示例：字号统一、基线对齐、单位不抢视觉。</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="spacing">
+          <div class="secHead"><h2 class="secTitle">5. 栅格、间距、圆角、阴影</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">空间系统（8pt 基线）</h3>
+              <div class="table"><table><thead><tr><th>对象</th><th>建议值</th><th>说明</th></tr></thead><tbody>
+                <tr><td>页面主区边距</td><td>24–40</td><td>留足呼吸感，避免边贴内容</td></tr>
+                <tr><td>模块间距</td><td>32–56</td><td>形成结构断点，利于扫描</td></tr>
+                <tr><td>卡片内边距</td><td>16–24</td><td>紧凑但不拥挤</td></tr>
+                <tr><td>表单项垂直距</td><td>12–16</td><td>阅读与输入节奏平衡</td></tr>
+                <tr><td>按钮组间距</td><td>8–12</td><td>操作不误触</td></tr>
+              </tbody></table></div>
+            </div>
+            <div class="card">
+              <h3 class="h">形状与层级</h3>
+              <ul class="list">
+                <li>Card：16/20 圆角（大容器用20）。</li>
+                <li>Input / Button：12 圆角（移动端统一手感）。</li>
+                <li>Tag / Badge：Pill 胶囊（999）。</li>
+                <li>阴影：只用 3 级（Surface / Popup / Drawer），避免“每块都阴影”。</li>
+              </ul>
+              <div class="note">“高级感”不靠花样，靠统一与克制。</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="motion">
+          <div class="secHead"><h2 class="secTitle">6. 动效规范</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <div class="table"><table><thead><tr><th>场景</th><th>时长</th><th>曲线</th><th>规则</th></tr></thead><tbody>
+                <tr><td>Hover / 按压反馈</td><td>120ms</td><td>ease-out</td><td>快反馈，不拖沓</td></tr>
+                <tr><td>组件状态切换</td><td>200ms</td><td>ease-in-out</td><td>平滑但不过度</td></tr>
+                <tr><td>抽屉 / 弹层入场</td><td>280–320ms</td><td>cubic-bezier(.2,.8,.2,1)</td><td>有重量感，避免眩晕</td></tr>
+              </tbody></table></div>
+            </div>
+            <div class="card">
+              <h3 class="h">动效原则</h3>
+              <ul class="list">
+                <li>训练与数据页面：动效偏稳，重点在可读性。</li>
+                <li>激励反馈（完成、达标）：动效偏快，强调正反馈。</li>
+                <li>支持“减少动态”系统设置（尊重用户偏好）。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="components">
+          <div class="secHead"><h2 class="secTitle">7. 核心组件状态矩阵（重点）</h2><p class="secDesc">建议首批沉淀：Button / Input / Select / Tabs / Card / Stat / Progress / Tag / Modal / Toast</p></div>
+          <div class="card">
+            <div class="table"><table><thead><tr><th style="width:18%">组件</th><th>变体</th><th>状态</th><th>关键规范</th></tr></thead><tbody>
+              <tr><td><b>Button</b></td><td>Primary / Secondary / Ghost / Danger</td><td>Default / Hover / Active / Disabled / Loading</td><td>高度40/44，圆角12，主按钮紫底白字，禁用态降低对比。</td></tr>
+              <tr><td><b>Input</b></td><td>Text / Number / Search</td><td>Default / Focus / Error / Disabled / Readonly</td><td>Focus环=品牌紫，错误态需文案 + 图标，不仅改红边。</td></tr>
+              <tr><td><b>Tabs</b></td><td>Line / Pill</td><td>Default / Active / Hover</td><td>选中态必须清晰，文本不小于14px。</td></tr>
+              <tr><td><b>Card</b></td><td>Base / KPI / Interactive</td><td>Default / Hover / Selected</td><td>同语义卡片样式一致，禁止“一卡一风格”。</td></tr>
+              <tr><td><b>Stat</b></td><td>Single / Group</td><td>Normal / Positive / Negative</td><td>数字使用mono，单位和变化值规则统一。</td></tr>
+              <tr><td><b>Modal/Sheet</b></td><td>Confirm / Form / Alert</td><td>Enter / Exit / Blocking / Dismiss</td><td>遮罩层透明度固定；关闭入口明确。</td></tr>
+            </tbody></table></div>
+            <div class="note">组件规范输出建议：每个组件必须有「解剖结构图 + 状态图 + Token映射 + Do/Don't 示例」。</div>
+          </div>
+        </section>
+
+        <section id="component-spec">
+          <div class="secHead"><h2 class="secTitle">8. 组件解剖与状态规范（P0）</h2><p class="secDesc">把“组件清单”升级为“可研发落地规范”：结构层、尺寸、状态、交互、可访问性一次讲清。</p></div>
+          <div class="card">
+            <div class="table"><table><thead><tr><th style="width:16%">组件</th><th style="width:22%">Anatomy（结构层）</th><th style="width:24%">尺寸规格</th><th style="width:22%">状态矩阵</th><th>交互与A11y</th></tr></thead><tbody>
+              <tr><td><b>Button</b></td><td>Container / Label / Icon / Loading</td><td>S(32) / M(40) / L(44)<br/>Pad: 12-16<br/>Radius: 12</td><td>Default / Hover / Active / Focus / Disabled / Loading</td><td>键盘可触发；Focus ring 必显；Loading禁二次提交。</td></tr>
+              <tr><td><b>Input</b></td><td>Label / Field / Prefix-Suffix / Help / Error</td><td>Height: 40/44<br/>Text: 14/16<br/>Radius: 10-12</td><td>Default / Focus / Filled / Error / Disabled / Readonly</td><td>Error 需颜色+文案；支持键盘导航；触控热区≥44。</td></tr>
+              <tr><td><b>Select</b></td><td>Trigger / Value / Chevron / Menu / Option</td><td>Trigger: 40/44<br/>Menu item: ≥36</td><td>Closed / Open / Hover / Selected / Disabled</td><td>支持Esc关闭、方向键选择、Enter确认。</td></tr>
+              <tr><td><b>Card</b></td><td>Header / Body / Footer / Actions</td><td>Padding: 16/20/24<br/>Radius: 16/20</td><td>Default / Hover / Selected / Disabled</td><td>整卡可点击时需明确 hover + active 反馈。</td></tr>
+              <tr><td><b>Modal</b></td><td>Backdrop / Panel / Header / Body / Footer</td><td>Width: 360-720<br/>Padding: 20-24</td><td>Enter / Open / Exit / Blocking / Dismiss</td><td>焦点圈定（Focus Trap）、Esc关闭、返回焦点原位。</td></tr>
+            </tbody></table></div>
+            <div class="note">Do：同一组件同一规则；Don't：同名组件在不同页面出现不同圆角/高度/状态反馈。</div>
+          </div>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="card">
+              <h3 class="h">组件状态命名建议（代码层）</h3>
+<pre>.btn { }
+.btn--primary { }
+.btn:is(:hover,[data-state="hover"]) { }
+.btn:is(:active,[data-state="active"]) { }
+.btn:is(:focus-visible,[data-state="focus"]) { }
+.btn[disabled], .btn[data-state="disabled"] { }
+.btn[data-state="loading"] { }</pre>
+            </div>
+            <div class="card">
+              <h3 class="h">状态覆盖优先级（从高到低）</h3>
+              <ul class="list">
+                <li>Disabled > Loading > Error > Focus > Active > Hover > Default</li>
+                <li>冲突时优先保证“不可操作”与“风险提示”语义。</li>
+                <li>任何状态不可破坏可读性（文字对比度优先）。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="responsive">
+          <div class="secHead"><h2 class="secTitle">9. 响应式规范（P0）</h2><p class="secDesc">明确断点、栅格、字体与间距缩放规则，保证移动端到大屏体验连贯。</p></div>
+          <div class="card">
+            <div class="table"><table><thead><tr><th style="width:16%">断点</th><th style="width:14%">宽度</th><th style="width:18%">栅格</th><th style="width:22%">间距策略</th><th>排版/信息策略</th></tr></thead><tbody>
+              <tr><td><b>Mobile</b></td><td>&lt; 768</td><td>4列 / 边距16</td><td>模块间距 24-32；卡片内边距 14-16</td><td>单列优先；先KPI后细节；高频CTA固定底部可见。</td></tr>
+              <tr><td><b>Tablet</b></td><td>768-1199</td><td>8列 / 边距20-24</td><td>模块间距 32-40；卡片内边距 16-20</td><td>双列信息；避免三栏拥挤；保留关键图表。</td></tr>
+              <tr><td><b>Desktop</b></td><td>≥ 1200</td><td>12列 / 边距24-40</td><td>模块间距 40-56；卡片内边距 20-24</td><td>可用2-3列；信息并排对比；侧栏增强导航效率。</td></tr>
+            </tbody></table></div>
+          </div>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="card">
+              <h3 class="h">字体缩放基线</h3>
+              <ul class="list">
+                <li>Mobile：H1 28 / H2 22 / Body 14</li>
+                <li>Tablet：H1 30 / H2 23 / Body 14-15</li>
+                <li>Desktop：H1 32 / H2 24 / Body 14-16</li>
+              </ul>
+              <div class="note">禁止仅缩小字体解决拥挤，优先重排信息结构。</div>
+            </div>
+            <div class="card">
+              <h3 class="h">响应式 Do / Don’t</h3>
+              <ul class="list">
+                <li>Do：按优先级折叠低频信息（次级说明、扩展字段）。</li>
+                <li>Do：把对比数据改为纵向堆叠，避免横向挤压。</li>
+                <li>Don’t：移动端保留桌面三列表格原样。</li>
+                <li>Don’t：在小屏保留过长行文本（>32个汉字一行）。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="dataviz">
+          <div class="secHead"><h2 class="secTitle">10. 数据可视化规范（P0）</h2><p class="secDesc">围绕训练评估与复评场景，统一图表选型、视觉编码与风险阈值表达。</p></div>
+          <div class="card">
+            <div class="table"><table><thead><tr><th style="width:18%">场景</th><th style="width:18%">推荐图表</th><th style="width:20%">编码规则</th><th style="width:20%">阈值表达</th><th>避免误导</th></tr></thead><tbody>
+              <tr><td>阶段趋势（体脂/围度）</td><td>折线图</td><td>主指标用品牌紫；比较组用中性灰</td><td>目标线/警戒线用虚线标注并命名</td><td>禁止截断Y轴夸大波动</td></tr>
+              <tr><td>多项能力对比</td><td>分组条形图</td><td>同维度同色；数值右对齐</td><td>达标值使用浅色区间背景</td><td>禁止混用正负色导致语义冲突</td></tr>
+              <tr><td>动作质量雷达</td><td>雷达图（限5-6维）</td><td>填充透明度 12%-18%</td><td>最低合格圈层需标注文本</td><td>维度过多会失真，超6维改条形图</td></tr>
+              <tr><td>风险分级</td><td>分段色条 / 仪表</td><td>绿-黄-红固定映射</td><td>阈值写明来源（评估标准）</td><td>禁止只给颜色不给说明文案</td></tr>
+            </tbody></table></div>
+          </div>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="card">
+              <h3 class="h">图表基础样式</h3>
+              <ul class="list">
+                <li>网格线：仅主网格，颜色用 Border Default。</li>
+                <li>坐标轴文本：12px，色值 Text Secondary。</li>
+                <li>数据标签：默认隐藏，hover或关键点显示。</li>
+                <li>图例顺序：与业务优先级一致，不按字母排序。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h">风险语义映射（统一）</h3>
+              <ul class="list">
+                <li>安全（Green）：可推进训练。</li>
+                <li>关注（Amber）：需降级或加强监控。</li>
+                <li>风险（Red）：暂停高负荷并复评。</li>
+                <li>所有颜色状态必须配套文本标签。</li>
+              </ul>
+              <div class="note">图表目标是帮助决策，不是制造视觉冲击。优先准确、可比、可复盘。</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="templates">
+          <div class="secHead"><h2 class="secTitle">11. 页面模板规范（跨端一致）</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">核心页面模板（按业务闭环）</h3>
+              <ul class="list">
+                <li>Assessment：评估页（体测、体态、功能测试、训练风险等级）。</li>
+                <li>Plan：定制计划页（阶段目标、每周频次、替代动作、升级条件）。</li>
+                <li>Session：课程执行页（动作组、RPE、疼痛反馈、即时调整）。</li>
+                <li>Review：复评页（前后对比、问题变化、下一阶段建议）。</li>
+                <li>Profile：会员档案（历史训练、依从性、注意事项）。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h">每页信息顺序（统一）</h3>
+              <ol class="list" style="padding-left:18px">
+                <li>页面标题 + 标签（阶段 / 风险 / 目标）</li>
+                <li>核心KPI区（3–6个）</li>
+                <li>主体内容分组（最多3层）</li>
+                <li>风险与提示 Callout</li>
+                <li>主操作区（1主2次）</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="docs">
+          <div class="secHead"><h2 class="secTitle">12. DOCX / PDF 导出规范（A4友好）</h2></div>
+          <div class="card">
+            <div class="table"><table><thead><tr><th>模块</th><th>规范</th><th>落地要点</th></tr></thead><tbody>
+              <tr><td>页眉</td><td>Logo + 文档类型 + 日期/会员编号</td><td>统一页眉紫线，不做花哨背景。</td></tr>
+              <tr><td>首页摘要</td><td>目标、阶段、关键风险、3–6个KPI</td><td>一页看懂核心状态。</td></tr>
+              <tr><td>评估页</td><td>体测数据 + 体态问题 + 功能测试结果</td><td>必须出现“问题优先级排序”。</td></tr>
+              <tr><td>训练计划区</td><td>按“松解→激活→主训→核心→拉伸”结构输出</td><td>表格化，减少大段文本。</td></tr>
+              <tr><td>复评页</td><td>阶段前后对比 + 下阶段迭代建议</td><td>体现“执行—复评—迭代”闭环。</td></tr>
+              <tr><td>风险提示</td><td>独立Callout区（左紫线）</td><td>高风险动作替代建议必须出现。</td></tr>
+            </tbody></table></div>
+          </div>
+        </section>
+
+        <section id="a11y">
+          <div class="secHead"><h2 class="secTitle">13. 无障碍与合规边界</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">A11y硬性要求</h3>
+              <ul class="list">
+                <li>正文最小字号 14px（移动端）；不得低于12px。</li>
+                <li>对比度：正文 ≥ 4.5:1，标题 ≥ 3:1。</li>
+                <li>触控热区 ≥ 44×44px。</li>
+                <li>状态不可仅靠颜色表达，必须有文本/图标辅助。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h">营销与健康表达边界</h3>
+              <ul class="list">
+                <li>建议用词：改善、支持、缓解、提升稳定性。</li>
+                <li>避免用词：治疗、治愈、保证见效、一次解决。</li>
+                <li>对疼痛/不适提示：出现锐痛、放射痛建议就医。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="tokens">
+          <div class="secHead"><h2 class="secTitle">14. 可直接使用的 Tokens</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <p class="h" style="margin-bottom:8px">CSS Tokens（语义化）</p>
+<pre id="token-css">:root {
+  --color-bg-page:#FFFFFF;
+  --color-bg-surface:#FFFFFF;
+  --color-bg-subtle:#F8F9FC;
+  --color-text-primary:#111827;
+  --color-text-secondary:#4B5563;
+  --color-border:#E5E7EB;
+
+  --color-brand:#9566F2;
+  --color-brand-hover:#6B44D8;
+  --color-brand-soft:#F1EBFF;
+
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-7:32px;
+
+  --shadow-1:0 6px 18px rgba(15,23,42,.06);
+  --shadow-2:0 12px 28px rgba(15,23,42,.08);
+}</pre>
+              <div style="margin-top:8px"><button class="btn" data-copy="#token-css">复制 CSS</button></div>
+            </div>
+            <div class="card">
+              <p class="h" style="margin-bottom:8px">JSON Tokens（设计系统存储）</p>
+<pre id="token-json">{
+  "color": {
+    "brand": { "500":"#9566F2", "700":"#6B44D8", "100":"#F1EBFF" },
+    "text": { "primary":"#111827", "secondary":"#4B5563" },
+    "bg": { "page":"#FFFFFF", "subtle":"#F8F9FC" },
+    "border": { "default":"#E5E7EB" },
+    "state": { "success":"#16A34A", "warning":"#F59E0B", "danger":"#DC2626", "info":"#2563EB" }
+  },
+  "radius": { "sm":8, "md":12, "lg":16, "xl":20 },
+  "spacing": { "1":4, "2":8, "3":12, "4":16, "5":20, "6":24, "7":32 },
+  "shadow": {
+    "1":"0 6px 18px rgba(15,23,42,.06)",
+    "2":"0 12px 28px rgba(15,23,42,.08)"
+  },
+  "rules": { "brandRatioMax":0.15, "minTap":44, "textMinMobile":14 }
+}</pre>
+              <div style="margin-top:8px"><button class="btn" data-copy="#token-json">复制 JSON</button></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="governance">
+          <div class="secHead"><h2 class="secTitle">15. 治理机制与版本策略</h2></div>
+          <div class="grid2">
+            <div class="card">
+              <h3 class="h">版本语义（推荐）</h3>
+              <ul class="list">
+                <li><b>Major</b>：视觉原则或组件结构重大调整（破坏性变更）。</li>
+                <li><b>Minor</b>：新增组件、增加变体、扩展模板。</li>
+                <li><b>Patch</b>：修复token、对齐样式细节、不改结构。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h">发布流程（简化版）</h3>
+              <ol class="list" style="padding-left:18px">
+                <li>设计提交变更说明（目标 / 影响 / 回滚方式）</li>
+                <li>与前端评审 token 映射</li>
+                <li>在模板页做视觉回归检查</li>
+                <li>更新 changelog 并标记生效版本</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="qa">
+          <div class="secHead"><h2 class="secTitle">16. QA 发布清单</h2></div>
+          <div class="checks">
+            <div class="check"><p class="h">视觉一致性</p><ul class="list"><li>品牌紫占比 ≤ 15%</li><li>圆角/边框/阴影符合规范</li><li>主次按钮层级清晰</li><li>字体层级不混乱</li></ul></div>
+            <div class="check"><p class="h">结构可读性</p><ul class="list"><li>标题—指标—内容—操作顺序正确</li><li>KPI数量 3–6，重点明确</li><li>风险信息有独立入口</li><li>页面无信息堆叠</li></ul></div>
+            <div class="check"><p class="h">交互与状态</p><ul class="list"><li>组件具备默认/悬停/按压/禁用</li><li>输入错误反馈完整</li><li>加载与空状态可识别</li><li>动效时长符合标准</li></ul></div>
+            <div class="check"><p class="h">可访问性与合规</p><ul class="list"><li>最小触控热区 44×44</li><li>对比度达标</li><li>非颜色单一传达</li><li>无“治愈/保证见效”等违规用词</li></ul></div>
+          </div>
+
+          <section id="example-pack" style="margin-top:18px">
+            <div class="secHead"><h2 class="secTitle">17. Example Pack（v4.5）</h2><p class="secDesc">把规范变成可直接复用的样例：组件状态、图表样例、三端响应式对照。</p></div>
+
+            <div class="card">
+              <h3 class="h" style="margin-bottom:10px">17.1 组件状态样例（Button / Input / Select）</h3>
+              <div class="example-grid">
+                <div class="example">
+                  <p class="ttl">Button States</p>
+                  <div class="rowx">
+                    <button class="btn btnPrimary">Primary</button>
+                    <button class="btn btnSoft">Hover</button>
+                    <button class="btn btnGhost">Ghost</button>
+                    <button class="btn btnDanger">Danger</button>
+                    <button class="btn btnPrimary btnLoading" aria-busy="true" aria-live="polite">Loading...</button>
+                    <button class="btn" disabled>Disabled</button>
+                  </div>
+                </div>
+                <div class="example">
+                  <p class="ttl">Input States</p>
+                  <div class="field">
+                    <label class="labelx">训练目标（默认）</label>
+                    <input class="inputx" value="减脂 + 体态优化" />
+                    <label class="labelx">执行反馈（成功）</label>
+                    <input class="inputx success" value="核心稳定性提升，继续进阶" />
+                    <span class="help ok">成功示例：本周可小幅提升训练负荷</span>
+                    <label class="labelx">风险提示（警告）</label>
+                    <input class="inputx warning" value="动作质量波动，建议保持当前级别" />
+                    <span class="help warn">警告示例：建议增加热身与动作回看</span>
+                    <label class="labelx">疼痛反馈（错误）</label>
+                    <input class="inputx error" value="疼痛阈值异常，请降级" />
+                    <span class="help err">错误示例：请调整动作负荷与组次</span>
+                  </div>
+                </div>
+                <div class="example">
+                  <p class="ttl">Select / Status</p>
+                  <div class="field">
+                    <label class="labelx">教练分配</label>
+                    <select class="inputx"><option>Coach A（功能修复）</option><option>Coach B（塑形专项）</option></select>
+                    <span class="help">支持键盘导航：↑ ↓ Enter Esc</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3 class="h" style="margin-bottom:10px">17.2 图表示例（趋势 / 对比 / 风险）</h3>
+              <div class="example-grid viz">
+                <div class="chart">
+                  <p class="ttl">趋势折线（体脂率）</p>
+                  <div class="line-legend"><span><i class="dot p"></i> 本周期</span><span><i class="dot g"></i> 上周期</span></div>
+                  <svg viewBox="0 0 220 88" width="100%" height="88" aria-label="trend-line">
+                    <path d="M10 66 L56 58 L102 52 L148 46 L194 40" fill="none" stroke="var(--brand)" stroke-width="2.6"/>
+                    <path d="M10 70 L56 68 L102 63 L148 60 L194 56" fill="none" stroke="#98a2b3" stroke-width="2" stroke-dasharray="4 3"/>
+                  </svg>
+                </div>
+                <div class="chart">
+                  <p class="ttl">能力对比（分组条形）</p>
+                  <div class="bars">
+                    <div class="bar"><span>核心稳定</span><div class="track"><div class="fill" style="width:72%"></div></div><span>72</span></div>
+                    <div class="bar"><span>髋活动度</span><div class="track"><div class="fill" style="width:64%"></div></div><span>64</span></div>
+                    <div class="bar"><span>动作控制</span><div class="track"><div class="fill" style="width:79%"></div></div><span>79</span></div>
+                  </div>
+                </div>
+                <div class="chart">
+                  <p class="ttl">风险分段（绿黄红）</p>
+                  <div class="risk">
+                    <div class="seg"><span></span><span></span><span></span></div>
+                    <div class="help">当前：关注区（Amber）— 建议降级并复评。</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h3 class="h" style="margin-bottom:10px">17.3 三端响应式对照（同一模块）</h3>
+              <div class="device-grid">
+                <div class="device">
+                  <h4>Mobile（&lt;768）</h4>
+                  <div class="wire">
+                    <div class="blk"></div><div class="blk s"></div><div class="btnline"></div>
+                  </div>
+                </div>
+                <div class="device">
+                  <h4>Tablet（768-1199）</h4>
+                  <div class="wire">
+                    <div class="blk"></div><div class="blk"></div><div class="btnline"></div>
+                  </div>
+                </div>
+                <div class="device">
+                  <h4>Desktop（≥1200）</h4>
+                  <div class="wire">
+                    <div class="blk"></div><div class="blk"></div><div class="blk s"></div><div class="btnline"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="note">同一模块在不同端仅做“结构重排”，不改变语义与状态定义。</div>
+            </div>
+          </section>
+
+          <div class="card" style="margin-top:12px">
+            <div style="font-weight:1000">一句话标准</div>
+            <div class="p" style="margin-top:6px">7Fit 的高级感来自“统一规则 + 结构分层 + 留白控制 + 精准强调”，不是靠堆砌视觉特效。</div>
+          </div>
+
+          <footer style="margin:28px 0 10px;text-align:center;color:var(--text-tertiary);font-size:12px">7Fit Visual OS v4.5 · Primary #9566F2 · by Design System</footer>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">已复制</div>
+  <div id="a11y-live" class="sr-only" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const toast = document.getElementById('toast');
+      const a11yLive = document.getElementById('a11y-live');
+      const app = document.getElementById('appRoot');
+      const themeBtn = document.getElementById('themeBtn');
+      let dark = false;
+
+      themeBtn.addEventListener('click', ()=>{
+        dark = !dark;
+        app.setAttribute('data-theme', dark ? 'dark' : 'light');
+        themeBtn.textContent = dark ? '切换浅色预览' : '切换深色预览';
+      });
+
+      function showToast(msg){
+        toast.textContent = msg || '已复制';
+        if(a11yLive) a11yLive.textContent = msg || '已复制';
+        toast.classList.add('show');
+        clearTimeout(window.__t7);
+        window.__t7 = setTimeout(()=>toast.classList.remove('show'), 1200);
+      }
+
+      function fallbackCopy(text){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try{ document.execCommand('copy'); showToast('已复制到剪贴板'); }
+        catch(e){ showToast('复制失败，请手动复制'); }
+        document.body.removeChild(ta);
+      }
+
+      function copyText(text){
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(()=>showToast('已复制到剪贴板')).catch(()=>fallbackCopy(text));
+        }else{ fallbackCopy(text); }
+      }
+
+      document.querySelectorAll('[data-copy]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const selector = btn.getAttribute('data-copy');
+          const el = document.querySelector(selector);
+          if(!el) return showToast('未找到复制内容');
+          copyText(el.textContent);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

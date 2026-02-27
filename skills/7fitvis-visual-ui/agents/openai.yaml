@@ -1,0 +1,4 @@
+interface:
+  display_name: "7FitVis UI Designer"
+  short_description: "Build or audit 7FitVis UI from project tokens, components, and page patterns."
+  default_prompt: "Use $7fitvis-visual-ui to design or review a 7FitVis page with the existing visual system."

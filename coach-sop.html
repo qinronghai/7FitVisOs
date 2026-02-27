@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>7Fit｜教练执行手册（Coach SOP v3.3）</title>
+  <style>
+    :root{
+      --bg:#f5f8ff;--card:#fff;--line:#dbe4f6;--text:#0f1a33;--muted:#5f7196;
+      --brand:#7a54e8;--brand-soft:#f0eaff;--ok:#16a34a;--warn:#d97706;--danger:#dc2626;
+      --max:1180px;--radius:14px;--sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --space-1:8px;--space-2:12px;--space-3:16px;--space-4:24px;
+    }
+    html[data-theme="dark"]{
+      --bg:#0b1020;--card:#141f3a;--line:#2a3b64;--text:#eef4ff;--muted:#9cb0d8;
+      --brand:#9a76ff;--brand-soft:rgba(154,118,255,.16);
+    }
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.68}
+    .wrap{max-width:var(--max);margin:0 auto;padding:24px 16px 56px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+    .logo{font-size:22px;font-weight:1000}.logo b{color:var(--brand)}
+    .nav{display:flex;gap:8px;flex-wrap:wrap}
+    .nav a,.btn{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);text-decoration:none;display:inline-flex;align-items:center;font-weight:800;font-size:13px}
+    .nav a.active{background:var(--brand-soft);border-color:rgba(122,84,232,.5)}
+
+    .cover{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:14px}
+    .cover h2{margin:0 0 6px;font-size:20px}.meta{font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+
+    .head{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,var(--brand-soft),var(--card));padding:24px}
+    .head h1{margin:0;font-size:34px;letter-spacing:.2px;font-weight:900}.sub{margin:12px 0 0;color:var(--muted);font-size:15px}
+    .tags{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:11px;padding:5px 9px;border:1px solid rgba(122,84,232,.4);background:var(--brand-soft);color:var(--brand);border-radius:999px;font-weight:800}
+
+    .section{margin-top:24px}.section h2{margin:0 0 var(--space-2);font-size:24px;letter-spacing:.2px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:var(--card)}
+    .card h3{margin:0 0 var(--space-1);font-size:16px;line-height:1.45}
+    ul{margin:8px 0 0;padding-left:18px}li{margin:5px 0}
+    table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}th{text-align:left;color:var(--muted)}
+    .pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}
+    .ok{background:#ecfdf3;color:var(--ok)}.warn{background:#fff7ed;color:var(--warn)}.danger{background:#fef2f2;color:var(--danger)}
+    .callout{margin-top:10px;border-left:3px solid var(--brand);background:var(--brand-soft);padding:10px 12px;border-radius:10px;font-size:13px}
+
+    .footer{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+    @media (max-width:960px){.grid2,.grid3{grid-template-columns:1fr}.head h1{font-size:28px}}
+    @media print{.top .btn,.footer{display:none!important}body{background:#fff;color:#111}.head,.card,.cover{background:#fff;border-color:#cfd6e6}@page{size:A4;margin:14mm}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="logo">7<b>Fit</b> · Coach SOP</div>
+      <div class="nav">
+        <a href="brand-marketing.html">Marketing</a>
+        <a class="active" href="coach-sop.html">Coach SOP</a>
+        <a href="ui-kit-demo.html">UI Kit</a>
+        <button class="btn" id="themeToggle">浅色 / 深色</button>
+      </div>
+    </div>
+
+    <section class="cover">
+      <h2>教练执行手册封面</h2>
+      <div class="meta"><span>版本：v3.3</span><span>更新时间：2026-02-18</span><span>目标：标准化“评估→分析→定制→执行→复评→迭代”</span></div>
+    </section>
+
+    <header class="head">
+      <h1>7Fit 教练执行手册（SOP v3.3）</h1>
+      <p class="sub">7Fit 不卖课时，而是交付可验证的改变。所有课程执行必须围绕体测、体态、功能测试、目标需求和器械条件。</p>
+      <div class="tags"><span class="tag">私教主导</span><span class="tag">功能恢复</span><span class="tag">塑形提升</span><span class="tag">慢性疼痛改善</span><span class="tag">复评驱动</span></div>
+    </header>
+
+    <section class="section">
+      <h2>1）首访接待（第一节前）</h2>
+      <div class="grid2">
+        <div class="card"><h3>资料采集</h3><ul><li>年龄、作息、职业、运动史</li><li>目标类型：减脂/塑形/体态/疼痛改善</li><li>旧伤史、手术史、禁忌动作</li></ul></div>
+        <div class="card"><h3>评估必做清单</h3><ul><li>体测：体重/围度/体脂/基础代谢</li><li>体态：骨盆前倾、圆肩驼背、头前引、足弓</li><li>功能：核心稳定、髋踝活动度、动作模式</li></ul><div class="callout">未完成评估，不进入正式训练处方。</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2）训练处方生成规则（定制）</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th style="width:20%">模块</th><th>执行要求</th><th style="width:20%">输出物</th></tr></thead>
+          <tbody>
+            <tr><td>目标拆解</td><td>把“想瘦/想改善”拆成4周/8周阶段指标</td><td>阶段目标卡</td></tr>
+            <tr><td>问题优先级</td><td>先处理疼痛与代偿，再做体型细化与负重升级</td><td>优先级矩阵</td></tr>
+            <tr><td>动作路径</td><td>优先“可控、可回归、可进阶”动作</td><td>动作清单</td></tr>
+            <tr><td>风险降级</td><td>疼痛 >3/10 自动触发替代动作与强度下调</td><td>降级策略表</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3）单次课程结构（执行）</h2>
+      <div class="grid3">
+        <div class="card"><h3>松解</h3><p>组织准备，降低紧张。</p></div>
+        <div class="card"><h3>激活</h3><p>启动目标肌群与核心稳定。</p></div>
+        <div class="card"><h3>主训</h3><p>围绕周期目标推进强度。</p></div>
+        <div class="card"><h3>核心</h3><p>抗伸展 / 抗旋转 / 抗侧屈控制。</p></div>
+        <div class="card"><h3>拉伸</h3><p>恢复长度与呼吸节律。</p></div>
+        <div class="card"><h3>记录</h3><p>RPE、疼痛、动作质量、备注。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4）风险管理红线</h2>
+      <div class="card">
+        <ul>
+          <li><span class="pill danger">立即停止</span> 锐痛、放射痛、头晕恶心、麻木增强</li>
+          <li><span class="pill warn">降级训练</span> 疼痛 >3/10、代偿明显、核心失稳</li>
+          <li><span class="pill ok">正常推进</span> 疼痛 ≤2/10，动作控制稳定，恢复良好</li>
+        </ul>
+        <div class="callout">原则：先保功能，再要表现；先保安全，再谈强度。</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5）复评与迭代（2-4周）</h2>
+      <div class="grid2">
+        <div class="card"><h3>复评内容</h3><ul><li>体测：围度/体脂/体重</li><li>体态：角度与对称性</li><li>功能：活动度/稳定性/动作质量</li><li>主观：疼痛/疲劳/依从性</li></ul></div>
+        <div class="card"><h3>迭代决策</h3><ul><li>达标：提高难度或切换目标</li><li>未达标：排查睡眠/饮食/频率/执行质量</li><li>风险上升：回退动作层级</li></ul><div class="callout">每次迭代都要回答：为什么改、改什么、何时复查。</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6）服务对象与训练场景映射（执行入口）</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>人群画像</h3>
+          <ul>
+            <li>久坐办公：肩颈紧张、下背不适、核心失活</li>
+            <li>女性塑形：臀腿线条、核心控制、体脂管理</li>
+            <li>产后恢复：呼吸重建、骨盆稳定、体态恢复</li>
+            <li>运动表现：动作效率、力量基础、伤痛预防</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>场景到方案</h3>
+          <ul>
+            <li>疼痛反复：先降级 + 控制阈值，再逐步回归</li>
+            <li>代偿明显：优先纠正动作模式，暂停负重升级</li>
+            <li>进展停滞：复查睡眠/饮食/频率并重设阶段目标</li>
+            <li>目标模糊：必须转成 4 周可量化指标</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7）标准交付件（每位学员必须可追踪）</h2>
+      <div class="grid3">
+        <div class="card"><h3>入门包</h3><ul><li>初始评估表</li><li>风险分级记录</li><li>首周期计划（4周）</li></ul></div>
+        <div class="card"><h3>过程包</h3><ul><li>每课执行记录（RPE/疼痛/动作质量）</li><li>周度反馈摘要</li><li>动作降级与替代历史</li></ul></div>
+        <div class="card"><h3>复评包</h3><ul><li>围度/体脂/体态对比</li><li>问题复盘与原因定位</li><li>下一周期计划</li></ul></div>
+      </div>
+      <div class="callout">没有记录就等于没有交付。SOP 的价值在于可复盘、可验证、可复制。</div>
+    </section>
+
+    <section class="section">
+      <h2>8）8周执行节奏（教练排班基准）</h2>
+      <div class="grid2">
+        <div class="card"><h3>第1-2周：评估与重建</h3><p>建立动作控制与呼吸节律，统一执行标准。</p></div>
+        <div class="card"><h3>第3-4周：稳定与强化</h3><p>提升核心稳定、局部力量与训练容量。</p></div>
+        <div class="card"><h3>第5-6周：专项推进</h3><p>进入塑形/减脂/力量专项，围绕目标提升效率。</p></div>
+        <div class="card"><h3>第7-8周：复评与迭代</h3><p>对比结果，确认瓶颈，输出下周期执行计划。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>9）质控与复盘机制（门店级）</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th style="width:24%">频率</th><th>检查项</th><th style="width:24%">责任人</th></tr></thead>
+          <tbody>
+            <tr><td>每日</td><td>课程记录完整率、风险事件上报、学员反馈闭环</td><td>值班主教练</td></tr>
+            <tr><td>每周</td><td>训练处方一致性、降级策略合理性、达标率趋势</td><td>门店主管</td></tr>
+            <tr><td>双周</td><td>复评执行率、迭代质量、留存与转介绍信号</td><td>运营 + 教学负责人</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer"><span>7Fit Coach SOP v3.3</span><span>与 Marketing / UI Kit 同步更新</span></footer>
+  </div>
+
+<script>
+(()=>{const k='7fit-theme';const r=document.documentElement;const s=localStorage.getItem(k);if(s)r.setAttribute('data-theme',s);document.getElementById('themeToggle').onclick=()=>{const n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem(k,n);};})();
+</script>
+</body>
+</html>
